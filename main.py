@@ -27,7 +27,7 @@ def reward_function(params):
 
     car_direction = heading + steering_angle
     # comparing the angle between the previous way point and the next waypoint with the car direction
-    angle = math.tan((x2 - x1) / (y2 - y1))
+    angle = math.atan((x2 - x1) / (y2 - y1))
     if x2 > x1 and y2 > y1:
         direction_diff = angle - car_direction
     elif x2 < x1 and y2 > y1:
@@ -46,7 +46,7 @@ def reward_function(params):
     y4 = future_point[1]
 
     # if track up ahead is straight then reward faster speeds
-    angle_ahead = math.tan((x4 - x2) / (y4 - y2))
+    angle_ahead = math.atan((x4 - x2) / (y4 - y2))
     if abs(angle - angle_ahead) < 1:
         if speed > 3.0:
             reward *= 1.5
