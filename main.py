@@ -15,8 +15,8 @@ def reward_function(params):
     # Initialize the reward with typical value
     reward = 1.0
 
-    if distance_from_center > (track_width/2*0.75):
-        reward *= 0.75
+    if distance_from_center > (track_width/2*0.5):
+        reward *= 0.50
 
     # Calculate the direction of the center line based on the closest waypoints
     next_point = waypoints[closest_waypoints[1]]
@@ -39,9 +39,9 @@ def reward_function(params):
         elif x2 < x1 and y2 > y1:
             direction_diff = (angle + 90) - car_direction
         elif x2 < x1 and y2 < y1:
-            direction_diff = (angle + 90) - abs(car_direction)
+            direction_diff = (-angle - 90) - car_direction
         else:
-            direction_diff = angle - abs(car_direction)
+            direction_diff = -angle - car_direction
 
     ALLOWED_DIFF = 10
     if abs(direction_diff) > ALLOWED_DIFF:
@@ -64,7 +64,7 @@ def reward_function(params):
     else:
         angle_ahead = math.atan((x3 - x2) / (y3 - y2))
 
-    if abs(angle - angle_ahead) < 1:
+    if abs(angle - angle_ahead) < 5:
         if speed > 3.0:
             reward *= 1.5
 
